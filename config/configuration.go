@@ -50,4 +50,5 @@ const (
 	PersistMessages              string = "PersistMessages"
 	Username					 string = "Username"
 	Password					 string = "Password"
+	PartyID					 	 string = "PartyID"
 )

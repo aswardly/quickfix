@@ -148,6 +148,10 @@ func (s *session) sendLogonInReplyTo(resetStore, setResetSeqNum bool, inReplyTo 
 		logon.Header.SetField(tagUsername, FIXString(s.sessionID.Username))
 		logon.Header.SetField(tagPassword, FIXString(s.sessionID.Password))
 	}
+	//set PartyID in the message if SessionID has PartyID value
+	if "" != s.sessionID.PartyID {
+		logon.Header.SetField(tagPartyID, FIXString(s.sessionID.PartyID))
+	}
 
 	logon.Body.SetField(tagEncryptMethod, FIXString("0"))
 	logon.Body.SetField(tagHeartBtInt, FIXInt(s.HeartBtInt.Seconds()))
