@@ -38,6 +38,8 @@ const (
 	tagHopCompID              Tag = 628
 	tagHopSendingTime         Tag = 629
 	tagHopRefID               Tag = 630
+	tagUsername				  Tag = 553
+	tagPassword				  Tag = 554
 
 	tagHeartBtInt           Tag = 108
 	tagBusinessRejectReason Tag = 380

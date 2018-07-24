@@ -1,6 +1,6 @@
 package quickfix
 
-import "github.com/quickfixgo/quickfix/internal"
+import "quickfix/internal"
 
 type pendingTimeout struct {
 	sessionState

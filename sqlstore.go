@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/quickfixgo/quickfix/config"
+	"quickfix/config"
 )
 
 type sqlStoreFactory struct {

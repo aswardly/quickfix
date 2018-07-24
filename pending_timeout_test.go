@@ -3,7 +3,7 @@ package quickfix
 import (
 	"testing"
 
-	"github.com/quickfixgo/quickfix/internal"
+	"quickfix/internal"
 	"github.com/stretchr/testify/suite"
 )
 

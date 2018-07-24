@@ -3,7 +3,7 @@ package datadictionary_test
 import (
 	"testing"
 
-	"github.com/quickfixgo/quickfix/datadictionary"
+	"quickfix/datadictionary"
 	"github.com/stretchr/testify/assert"
 )
 
