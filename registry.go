@@ -15,7 +15,7 @@ type Messagable interface {
 	ToMessage() *Message
 }
 
-//Send determines the session to send Messagable using header fields BeginString, TargetCompID, SenderCompID
+//Send determines the session to send Messagable using header fields BeginString, TargetCompID, SenderCompID, Username, Password, PartyID
 func Send(m Messagable) (err error) {
 	msg := m.ToMessage()
 	var beginString FIXString
@@ -34,7 +34,32 @@ func Send(m Messagable) (err error) {
 		return nil
 	}
 
-	sessionID := SessionID{BeginString: string(beginString), TargetCompID: string(targetCompID), SenderCompID: string(senderCompID)}
+	var Username FIXString
+	if err := msg.Header.GetField(tagUsername, &Username); err != nil {
+
+		return nil
+	}
+
+	var Password FIXString
+	if err := msg.Header.GetField(tagPassword, &Password); err != nil {
+
+		return nil
+	}
+
+	var PartyID FIXString
+	if err := msg.Header.GetField(tagPartyID, &PartyID); err != nil {
+
+		return nil
+	}
+
+	sessionID := SessionID{
+		BeginString: string(beginString),
+		TargetCompID: string(targetCompID),
+		SenderCompID: string(senderCompID),
+		Username: string(Username),
+		Password: string(Password),
+		PartyID: string(PartyID),
+	}
 
 	return SendToTarget(msg, sessionID)
 }
