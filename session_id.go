@@ -37,5 +37,10 @@ func (s SessionID) String() string {
 	appendOptional(b, "/", s.TargetLocationID)
 
 	appendOptional(b, ":", s.Qualifier)
+
+	appendOptional(b, ":", s.Username)
+	appendOptional(b, ":", s.Password)
+	appendOptional(b, ":", s.PartyID)
+
 	return b.String()
 }
