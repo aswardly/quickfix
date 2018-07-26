@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/quickfixgo/quickfix/config"
-	"github.com/quickfixgo/quickfix/datadictionary"
-	"github.com/quickfixgo/quickfix/internal"
+	"github.com/aswardly/quickfix/config"
+	"github.com/aswardly/quickfix/datadictionary"
+	"github.com/aswardly/quickfix/internal"
 )
 
 var dayLookup = map[string]time.Weekday{
@@ -274,6 +274,16 @@ func (f sessionFactory) newSession(
 		}
 
 		s.DisableMessagePersist = !persistMessages
+	}
+
+	//set username and password
+	if settings.HasSetting(config.Username) {
+		if s.username, err = settings.Setting(config.Username); err != nil {
+			return
+		}
+		if s.password, err = settings.Setting(config.Password); err != nil {
+			return
+		}
 	}
 
 	if f.BuildInitiators {

@@ -7,8 +7,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/quickfixgo/quickfix/datadictionary"
-	"github.com/quickfixgo/quickfix/internal"
+	"github.com/aswardly/quickfix/datadictionary"
+	"github.com/aswardly/quickfix/internal"
 )
 
 //The Session is the primary FIX abstraction for message communication
@@ -45,6 +45,9 @@ type session struct {
 
 	messagePool
 	timestampPrecision TimestampPrecision
+
+	username string
+	password string
 }
 
 func (s *session) logError(err error) {
@@ -143,6 +146,11 @@ func (s *session) sendLogonInReplyTo(resetStore, setResetSeqNum bool, inReplyTo 
 	logon.Header.SetField(tagBeginString, FIXString(s.sessionID.BeginString))
 	logon.Header.SetField(tagTargetCompID, FIXString(s.sessionID.TargetCompID))
 	logon.Header.SetField(tagSenderCompID, FIXString(s.sessionID.SenderCompID))
+	//set username and password if those were set
+	if s.username != "" && s.password != "" {
+		logon.Header.SetField(tagUsername, FIXString(s.username))
+		logon.Header.SetField(tagPassword, FIXString(s.password))
+	}
 	logon.Body.SetField(tagEncryptMethod, FIXString("0"))
 	logon.Body.SetField(tagHeartBtInt, FIXInt(s.HeartBtInt.Seconds()))
 
